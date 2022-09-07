@@ -1,16 +1,29 @@
 <template>
   <div class="welcome container">
-      <p>Welcome</p>
-      <SignUp />
-      <!-- <Login /> -->
+    <p>Welcome</p>
+    <div v-if="showLogin">
+        <h2>Login</h2>
+        <Login />
+        <p>No account yet? <span @click="showLogin = false">Signup</span> instead</p>
+    </div>
+    <div v-else>
+        <h1>Signup</h1>
+        <SignUp />
+        <p>Already registered? <span @click="showLogin = true">Login</span> instead</p>
+    </div>
   </div>
 </template>
 
 <script>
 import SignUp from  '../components/SignUp.vue'
 import Login from  '../components/Login.vue'
+import { ref } from '@vue/reactivity'
 export default {
-    components:{SignUp,Login}
+    components:{SignUp,Login},
+    setup(){
+        const showLogin = ref(true)
+        return {showLogin}
+    }
 }
 </script>
 
